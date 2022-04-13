@@ -1,0 +1,16 @@
+#header-intro {
+  background: url('../assets/img/bg-intro.jpg');
+  background-size: contain;
+}
+
+.section2 {
+  background-color: #DDDDDD;
+}
+
+.section4 {
+  background-color: #018786;
+}
+
+.bg-copy {
+  background-color: #121F84;
+}
