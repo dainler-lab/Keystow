@@ -4,13 +4,21 @@
 }
 
 .section2 {
-  background-color: #DDDDDD;
+  background-color: #dddddd;
 }
 
 .section4 {
-  background-color: #018786;
+  background: url('../assets/icons/icon-s4.svg'),
+    url('../assets/img/img-s4.svg') #018786;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center right, center left;
+  background-size: auto, auto;
 }
 
 .bg-copy {
-  background-color: #121F84;
+  background-color: #121f84;
+}
+
+.card-cadastro {
+  background: url('../assets/img/bg-cadastro.jpg') repeat center;
 }

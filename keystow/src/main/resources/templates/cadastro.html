@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html th:replace="~{app :: layout(~{::title}, ~{::div})}">
+
+<head>
+  <title>Cadastro</title>
+</head>
+
+<body>
+  <div class="container my-5">
+    <div class="row m-4">
+      <div class="card col col-sm-7 m-auto">
+
+        <form class="card-cadastro row d-flex align-items-end">
+
+          <h1 class="card-header h4 card-title p-4">MINHA CONTA DA KEYSTOW</h1>
+
+          <div class="card-body col col-sm-4 p-4">
+            <p class="fw-bold">Uma única conta para gerenciar remotamente a proteção de todas as suas senhas.</p>
+            <div class="d-flex flex-column gap-3">
+              <a class="btn btn-lg bg-white border shadow-sm" href="#">
+                <img src="assets\icons\google.svg" alt="facebook icon">
+                Registre-se pelo Google
+              </a>
+
+              <a class="btn btn-lg bg-white border shadow-sm" href="#">
+                <img src="assets\icons\facebook.svg" alt="facebook icon">
+                Continuar pelo Facebook
+              </a>
+            </div>
+
+            <p class="mt-4 fw-bold">ou use seu endereço de e-mail:</p>
+
+            <div class="form-floating my-3">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput">Endereço de E-mail</label>
+              <div id="emailHelp" class="form-text">
+                Você usará seu endereço de e-mail para fazer login.
+              </div>
+            </div>
+
+            <div class="form-floating my-3">
+              <input type="email" class="form-control" id="floatingInput" placeholder="Seu nome">
+              <label for="floatingInput">Seu nome</label>
+              <div id="emailHelp" class="form-text">
+                Como devemos chamá-lo?
+              </div>
+            </div>
+
+            <div class="form-floating my-3">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Senha mestra">
+              <label for="floatingPassword">Senha mestra</label>
+              <div id="emailHelp" class="form-text">
+                A senha mestra é a senha que você usa para acessar seu cofre. É muito importante que você não esqueça sua senha mestra. Não há como recuperar a senha caso você a esqueça.
+              </div>
+            </div>
+
+            <div class="form-floating my-3">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Digite novamente a senha mestra">
+              <label for="floatingPassword">Digite novamente a senha mestra</label>
+            </div>
+
+            <div class="form-floating my-3">
+              <input type="text" class="form-control" id="floatingPassword" placeholder="Dica de senha mestra (opcional)">
+              <label for="floatingPassword">Dica de senha mestra (opcional)</label>
+              <div id="emailHelp" class="form-text">
+                Uma dica de senha mestra pode ajudá-lo a lembrar sua senha caso a esqueça.
+              </div>
+            </div>
+
+            <div class="mt-2 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">
+                Ao clicar no botão "Criar conta", você concorda com as seguintes políticas: <a href="#" target="_blank" class="text-decoration-none">Termos de Serviço</a>, <a href="#" target="_blank" class="text-decoration-none">Política de Privacidade</a>
+              </label>
+            </div>
+
+          </div>
+
+          <div class="col">
+            <ul class="list-unstyled">
+              <li>— Pelo menos 8 caracteres</li>
+              <li>— Letras maiúsculas e minúsculas</li>
+              <li>— Ao menos um número</li>
+              <li>— Caracteres especiais válidos</li>
+              <li>— As senhas correspondem</li>
+            </ul>
+          </div>
+
+          <div class="card-footer p-4 d-flex flex-column flex-sm-row gap-3">
+            <button type="submit" class="btn btn-lg bg-primary text-white">Criar conta</button>
+            <a href="/login" class="btn btn-lg btn-outline-primary">Cancelar</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

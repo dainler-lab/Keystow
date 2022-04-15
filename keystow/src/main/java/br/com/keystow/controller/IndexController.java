@@ -12,4 +12,19 @@ public class IndexController {
 	public String index() {
 		return "index";
 	}
+
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+	@GetMapping("/dica")
+	public String dicaDeSenha() {
+		return "/dica";
+	}
+
+	@GetMapping("/cadastro")
+	public String cadastro() {
+		return "/cadastro";
+	}
 }
