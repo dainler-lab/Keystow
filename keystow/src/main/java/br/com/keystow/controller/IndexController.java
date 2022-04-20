@@ -27,4 +27,14 @@ public class IndexController {
 	public String cadastro() {
 		return "/cadastro";
 	}
+
+	@GetMapping("/home")
+	public String home() {
+		return "/home";
+	}
+
+	@GetMapping("/cofre")
+	public String cofre() {
+		return "/cofre";
+	}
 }
