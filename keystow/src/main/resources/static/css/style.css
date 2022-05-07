@@ -22,3 +22,6 @@
 .card-cadastro {
   background: url('../assets/img/bg-cadastro.jpg') repeat center;
 }
+label {
+  margin-bottom: 0.5rem;
+}
