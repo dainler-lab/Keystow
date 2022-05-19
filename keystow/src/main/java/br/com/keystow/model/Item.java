@@ -1,13 +1,23 @@
 package br.com.keystow.model;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @NoArgsConstructor
-@Data
 @Entity
+@Data
 @Table(name = "itens")
 public class Item {
 
@@ -22,7 +32,7 @@ public class Item {
     private TipoEnum tipo;
 
     // @Column(nullable = false)
-    private LocalDateTime dataDaOperação;
+    private LocalDateTime dataDaOperacao;
 
     private Boolean favorito;
     private Boolean lixeira;
@@ -35,12 +45,13 @@ public class Item {
     @JoinColumn(name = "cartao_id")
     private Cartao cartao;
 
-    public Item(String nome, TipoEnum tipo, Credencial credencial) {
-        this.nome = nome;
+    public Item(TipoEnum tipo, String nome, Boolean favorito, Boolean lixeira,
+            Credencial credencial) {
         this.tipo = tipo;
+        this.nome = nome;
+        this.dataDaOperacao = LocalDateTime.now();
+        this.favorito = favorito;
+        this.lixeira = lixeira;
         this.credencial = credencial;
-        this.dataDaOperação = LocalDateTime.now();
-        this.favorito = false;
-        this.lixeira = false;
     }
 }
