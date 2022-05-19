@@ -17,11 +17,11 @@ public class Item {
 
     private String nome;
 
-    //@Column(nullable = false, length = 200)
+    // @Column(nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
     private TipoEnum tipo;
 
-    //@Column(nullable = false)
+    // @Column(nullable = false)
     private LocalDateTime dataDaOperação;
 
     private Boolean favorito;

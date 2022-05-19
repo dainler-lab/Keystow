@@ -1,16 +1,17 @@
 package br.com.keystow.model;
 
-import javax.persistence.*;
-
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
 @Table(name = "cartoes")
 public class Cartao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String titularDoCartao;
 	private String numero;
 	private String bandeira;
