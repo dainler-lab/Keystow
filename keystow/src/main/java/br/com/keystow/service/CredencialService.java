@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import br.com.keystow.dto.CredencialDto;
-import br.com.keystow.form.ItemFormCredencial;
+import br.com.keystow.form.ItemFormCredencialCadastro;
 import br.com.keystow.model.Credencial;
 import br.com.keystow.repository.CredencialRepository;
 

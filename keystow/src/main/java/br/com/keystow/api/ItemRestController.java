@@ -6,17 +6,19 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.keystow.dto.ItemDto;
-import br.com.keystow.form.ItemFormCredencial;
-import br.com.keystow.model.Item;
-import br.com.keystow.repository.ItemRepository;
+import br.com.keystow.form.ItemFormCredencialAtualizar;
+import br.com.keystow.form.ItemFormCredencialCadastro;
 import br.com.keystow.service.ItemService;
 import lombok.RequiredArgsConstructor;
 
@@ -26,19 +28,27 @@ import lombok.RequiredArgsConstructor;
 public class ItemRestController {
 
     private final ItemService itemService;
-    private final ItemRepository itemRepository;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemDto> obterItem(@PathVariable Long id) {
+
+        if (itemService.verificarItem(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(itemService.buscarItem(id));
+    }
 
     @GetMapping
-    public List<ItemDto> itensListDto() {
-        List<Item> itens = itemRepository.findAll();
-        return ItemDto.converter(itens);
+    public List<ItemDto> obterItens() {
+        return itemService.buscarItens();
     }
 
     @PostMapping
-    public ResponseEntity<ItemDto> cadastrarItem(@RequestBody @Valid ItemFormCredencial itemFormCredencial,
+    public ResponseEntity<ItemDto> cadastrarItemCredencial(
+            @RequestBody @Valid ItemFormCredencialCadastro itemFormCredencialCadastro,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        ItemDto itemDto = itemService.salvarItemCredencial(itemFormCredencial);
+        ItemDto itemDto = itemService.salvarItemCredencial(itemFormCredencialCadastro);
 
         URI uri = uriComponentsBuilder
                 .path("/itens/{id}")
@@ -46,5 +56,28 @@ public class ItemRestController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(itemDto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemDto> atualizarItem(@PathVariable Long id,
+            @RequestBody @Valid ItemFormCredencialAtualizar itemFormCredencialAtualizar) {
+
+        if (itemService.verificarItem(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ItemDto itemDto = itemService.alterarItemCredencial(id, itemFormCredencialAtualizar);
+        return ResponseEntity.ok(itemDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removerItem(@PathVariable Long id) {
+
+        if (itemService.verificarItem(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        itemService.removerItem(id);
+        return ResponseEntity.ok().build();
     }
 }

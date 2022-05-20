@@ -8,7 +8,7 @@ INSERT INTO credenciais(campo_de_usuario, senha, uri)
 VALUES ('administrador@email.com', 'senha@pass', 'email.com');
 
 INSERT INTO itens(nome,tipo, data_da_operacao, favorito, lixeira, credencial_id)
-VALUES('Admin','CREDENCIAL', '2019-05-05 18:00:00', null, null, 1);
+VALUES('Admin','CREDENCIAL', '2019-05-05 18:00:00', null, null, 2);
 
 INSERT INTO itens(nome,tipo, data_da_operacao, favorito, lixeira, credencial_id)
 VALUES('Root','CREDENCIAL', '2019-05-05 18:00:00', null, null, 2);
