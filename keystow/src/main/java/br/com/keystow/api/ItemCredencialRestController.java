@@ -24,23 +24,23 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/itens")
-public class ItemRestController {
+@RequestMapping("/api/itens/credenciais")
+public class ItemCredencialRestController {
 
     private final ItemService itemService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ItemDto> obterItem(@PathVariable Long id) {
+    public ResponseEntity<ItemDto> obterItemCredencial(@PathVariable Long id) {
 
-        if (itemService.verificarItem(id) == null) {
+        if (itemService.verificarItemCredencial(id) == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(itemService.buscarItem(id));
+        return ResponseEntity.ok(itemService.buscarItemCredencial(id));
     }
 
     @GetMapping
-    public List<ItemDto> obterItens() {
-        return itemService.buscarItens();
+    public List<ItemDto> obterItensCredenciais() {
+        return itemService.buscarItensCredenciais();
     }
 
     @PostMapping
@@ -51,7 +51,7 @@ public class ItemRestController {
         ItemDto itemDto = itemService.salvarItemCredencial(itemFormCredencialCadastro);
 
         URI uri = uriComponentsBuilder
-                .path("/itens/{id}")
+                .path("api/itens/credenciais/{id}")
                 .buildAndExpand(itemDto.getId())
                 .toUri();
 
@@ -59,10 +59,10 @@ public class ItemRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ItemDto> atualizarItem(@PathVariable Long id,
+    public ResponseEntity<ItemDto> atualizarItemCredencial(@PathVariable Long id,
             @RequestBody @Valid ItemFormCredencialAtualizar itemFormCredencialAtualizar) {
 
-        if (itemService.verificarItem(id) == null) {
+        if (itemService.verificarItemCredencial(id) == null) {
             return ResponseEntity.notFound().build();
         }
 
@@ -71,13 +71,13 @@ public class ItemRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removerItem(@PathVariable Long id) {
+    public ResponseEntity<?> removerItemCredencial(@PathVariable Long id) {
 
-        if (itemService.verificarItem(id) == null) {
+        if (itemService.verificarItemCredencial(id) == null) {
             return ResponseEntity.notFound().build();
         }
 
-        itemService.removerItem(id);
+        itemService.removerItemCredencial(id);
         return ResponseEntity.ok().build();
     }
 }

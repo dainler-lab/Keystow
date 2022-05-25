@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
-import br.com.keystow.model.Credencial;
 import br.com.keystow.model.Item;
 import br.com.keystow.model.TipoEnum;
 import lombok.Data;
@@ -21,14 +20,13 @@ public class ItemDto {
     private Boolean favorito;
     private Boolean lixeira;
 
-    private Credencial credencial;
-
-    // private String credencialCampoDeUsuario;
-    // private String credencialSenha;
-    // private String credencialUri;
+    private CredencialDto credencialDto;
+    private CartaoDto cartaoDto;
 
     public ItemDto(Item item) {
         BeanUtils.copyProperties(item, this);
+        this.credencialDto = new CredencialDto(item.getCredencial());
+        this.cartaoDto = new CartaoDto(item.getCartao());
     }
 
     public static List<ItemDto> converter(List<Item> itens) {

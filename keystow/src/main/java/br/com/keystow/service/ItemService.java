@@ -21,59 +21,66 @@ import lombok.AllArgsConstructor;
 @Service
 public class ItemService {
 
-  private final ItemRepository itemRepository;
-  private final CredencialRepository credencialRepository;
+	private final ItemRepository itemRepository;
+	private final CredencialRepository credencialRepository;
 
-  public Item verificarItem(Long id) {
-    Optional<Item> item = (itemRepository.findById(id));
-    if (!item.isPresent()) {
-      return null;
-    }
-    return item.get();
-  }
+	public Item verificarItemCredencial(Long id) {
+		Optional<Item> item = (itemRepository.findById(id));
+		if (!item.isPresent()) {
+			return null;
+		}
+		return item.get();
+	}
 
-  public ItemDto buscarItem(Long id) {
-    return new ItemDto(verificarItem(id));
-  }
+	public ItemDto buscarItemCredencial(Long id) {
+		return new ItemDto(verificarItemCredencial(id));
+	}
 
-  public List<ItemDto> buscarItens() {
-    List<Item> itens = itemRepository.findAll();
-    return ItemDto.converter(itens);
-  }
+	public List<ItemDto> buscarItensCredenciais() {
+		List<Item> itens = itemRepository.findAll();
+		return ItemDto.converter(itens);
+	}
 
-  @Transactional
-  public ItemDto salvarItemCredencial(ItemFormCredencialCadastro itemFormCredencialCadastro) {
+	@Transactional
+	public ItemDto salvarItemCredencial(ItemFormCredencialCadastro itemFormCredencialCadastro) {
 
-    var credencial = new Credencial(itemFormCredencialCadastro.getCredencialCampoDeUsuario(),
-        itemFormCredencialCadastro.getCredencialSenha(), itemFormCredencialCadastro.getCredencialUri());
+		var credencial = new Credencial(itemFormCredencialCadastro.getCredencialCampoDeUsuario(),
+				itemFormCredencialCadastro.getCredencialSenha(), itemFormCredencialCadastro.getCredencialUri());
 
-    var credencialSalva = credencialRepository.save(credencial);
+		credencialRepository.save(credencial);
 
-    var item = new Item(itemFormCredencialCadastro.getTipo(), itemFormCredencialCadastro.getNome(),
-        itemFormCredencialCadastro.getFavorito(), itemFormCredencialCadastro.getLixeira(), credencialSalva);
+		var item = new Item(itemFormCredencialCadastro.getTipo(), itemFormCredencialCadastro.getNome(),
+				itemFormCredencialCadastro.getFavorito(), itemFormCredencialCadastro.getLixeira(), credencial);
 
-    return new ItemDto(itemRepository.save(item));
-  }
+		itemRepository.save(item);
 
-  @Transactional
-  public ItemDto alterarItemCredencial(Long id, ItemFormCredencialAtualizar itemFormCredencialAtualizar) {
+		credencial.setItem(item); // ATUALIZANDO O ITEM (SE BIDIRECIONAL)
 
-    var item = itemRepository.getById(id);
-    item.setNome(itemFormCredencialAtualizar.getNome());
-    item.setDataDaOperacao(LocalDateTime.now());
-    item.setFavorito(itemFormCredencialAtualizar.getFavorito());
-    item.setLixeira(itemFormCredencialAtualizar.getLixeira());
+		return new ItemDto(item);
+	}
 
-    var credencial = credencialRepository.getById(item.getCredencial().getId());
-    credencial.setCampoDeUsuario(itemFormCredencialAtualizar.getCredencialCampoDeUsuario());
-    credencial.setSenha(itemFormCredencialAtualizar.getCredencialSenha());
-    credencial.setUri(itemFormCredencialAtualizar.getCredencialUri());
+	@Transactional
+	public ItemDto alterarItemCredencial(Long id, ItemFormCredencialAtualizar itemFormCredencialAtualizar) {
 
-    return new ItemDto(item);
-  }
+		var item = itemRepository.getById(id);
+		item.setNome(itemFormCredencialAtualizar.getNome());
+		item.setDataDaOperacao(LocalDateTime.now());
+		item.setFavorito(itemFormCredencialAtualizar.getFavorito());
+		item.setLixeira(itemFormCredencialAtualizar.getLixeira());
 
-  @Transactional
-  public void removerItem(Long id) {
-    itemRepository.deleteById(id);
-  }
+		var credencial = credencialRepository.getById(item.getCredencial().getId());
+		credencial.setCampoDeUsuario(itemFormCredencialAtualizar.getCredencialCampoDeUsuario());
+		credencial.setSenha(itemFormCredencialAtualizar.getCredencialSenha());
+		credencial.setUri(itemFormCredencialAtualizar.getCredencialUri());
+
+		item.setCredencial(credencial);
+		credencial.setItem(item); // ATUALIZANDO O ITEM (SE BIDIRECIONAL)
+
+		return new ItemDto(item);
+	}
+
+	@Transactional
+	public void removerItemCredencial(Long id) {
+		itemRepository.deleteById(id);
+	}
 }

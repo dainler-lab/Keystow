@@ -2,6 +2,7 @@ package br.com.keystow.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name = "itens")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") //JACKSON – BIDIRECTIONAL RELATIONSHIPS INFINITE RECURSION
 public class Item {
 
     @Id
@@ -31,18 +36,17 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private TipoEnum tipo;
 
-    // @Column(nullable = false)
     private LocalDateTime dataDaOperacao;
 
     private Boolean favorito;
     private Boolean lixeira;
 
-    @OneToOne
     @JoinColumn(name = "credencial_id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Credencial credencial;
 
-    @OneToOne
     @JoinColumn(name = "cartao_id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Cartao cartao;
 
     public Item(TipoEnum tipo, String nome, Boolean favorito, Boolean lixeira,
