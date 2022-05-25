@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.BeanUtils;
 
 import br.com.keystow.model.Item;
@@ -14,7 +17,10 @@ import lombok.Data;
 public class ItemDto {
 
     private Long id;
+
+    @NotBlank @NotNull
     private TipoEnum tipo;
+    
     private String nome;
     private LocalDateTime dataDaOperacao;
     private Boolean favorito;

@@ -71,7 +71,7 @@ public class ItemCredencialRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removerItemCredencial(@PathVariable Long id) {
+    public ResponseEntity<Object> removerItemCredencial(@PathVariable Long id) {
 
         if (itemService.verificarItemCredencial(id) == null) {
             return ResponseEntity.notFound().build();
