@@ -3,6 +3,7 @@ package br.com.keystow.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name = "itens")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") //JACKSON – BIDIRECTIONAL RELATIONSHIPS INFINITE RECURSION
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") //JACKSON – BIDIRECTIONAL RELATIONSHIPS INFINITE RECURSION EXCEPTION
 public class Item {
 
     @Id
@@ -32,7 +33,7 @@ public class Item {
 
     private String nome;
 
-    // @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 200)
     @Enumerated(EnumType.STRING)
     private TipoEnum tipo;
 
